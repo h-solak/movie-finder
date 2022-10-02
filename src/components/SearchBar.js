@@ -2,13 +2,14 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { Row, Col, Button, Input, InputGroup } from "reactstrap";
 import { toast } from "react-hot-toast";
+import { application } from "../config";
 
 const SearchBar = ({ setResponseData, setLoading, page }) => {
   const [searchText, setSearchText] = useState("");
 
   const options = {
     method: "GET",
-    url: `https://api.themoviedb.org/3/search/movie?api_key=85c7aa1ef87dd5af359c7c15750f0d9e&language=en-US&page=${page}&include_adult=false&query=${searchText}`,
+    url: `https://api.themoviedb.org/3/search/movie?api_key=${application.api_key}&language=en-US&page=${page}&include_adult=false&query=${searchText}`,
     query: searchText,
     page: 1,
   };
