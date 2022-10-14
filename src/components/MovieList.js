@@ -11,14 +11,14 @@ import {
   ModalHeader,
 } from "reactstrap";
 import { toast } from "react-hot-toast";
-import { AiFillStar } from "react-icons/ai";
+import { AiFillStar, AiOutlineLoading3Quarters } from "react-icons/ai";
 
 const MovieList = ({ responseData, loading }) => {
   return (
     <Row>
       {loading ? (
         <Col sm="12" className="text-center">
-          <span className="absolute-center text-white">Loading...</span>
+          <AiOutlineLoading3Quarters className="absolute-center text-white loader" />
         </Col>
       ) : responseData.total_results > 0 ? (
         responseData.results?.map((movie) =>

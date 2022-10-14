@@ -41,3 +41,22 @@ a {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+.loader {
+    animation-name: spin;
+    animation-duration: 1000ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+
+/*Animations*/
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
