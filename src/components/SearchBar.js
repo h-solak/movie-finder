@@ -4,15 +4,16 @@ import { Row, Col, Button, Input, InputGroup } from "reactstrap";
 import { toast } from "react-hot-toast";
 import { application } from "../config";
 
-const SearchBar = ({ setResponseData, setLoading, page }) => {
+const SearchBar = ({
+  setResponseData,
+  setLoading,
+  page,
+  setPage,
+  setKeyword,
+  setNotFound,
+  setWelcome,
+}) => {
   const [searchText, setSearchText] = useState("");
-
-  const options = {
-    method: "GET",
-    url: `https://api.themoviedb.org/3/search/movie?api_key=${application.api_key}&language=en-US&page=${page}&include_adult=false&query=${searchText}`,
-    query: searchText,
-    page: 1,
-  };
 
   const handleSearchChange = (e) => {
     setSearchText(e.target.value);
@@ -21,13 +22,18 @@ const SearchBar = ({ setResponseData, setLoading, page }) => {
   useEffect(() => {
     setLoading(true);
     axios
-      .request(options)
+      .request({
+        method: "GET",
+        url: `https://api.themoviedb.org/3/search/movie?api_key=${application.api_key}&language=en-US&page=${page}&include_adult=false&query=${searchText}`,
+        query: searchText,
+        page: 1,
+      })
       .then(function (response) {
         setResponseData(response.data);
-        setLoading(false);
-        if (response.data.total_results === 0) {
-          toast.error("No results found!");
-        }
+        setTimeout(() => {
+          setLoading(false);
+        }, 300);
+        setNotFound(false);
       })
       .catch(function (error) {
         setLoading(false);
@@ -35,18 +41,32 @@ const SearchBar = ({ setResponseData, setLoading, page }) => {
   }, [page]);
 
   const handleSearchClick = () => {
+    setWelcome(false);
+    setPage(1);
     if (searchText.length > 0) {
       setLoading(true);
       axios
-        .request(options)
+        .request({
+          method: "GET",
+          url: `https://api.themoviedb.org/3/search/movie?api_key=${application.api_key}&language=en-US&page=${page}&include_adult=false&query=${searchText}`,
+          query: searchText,
+          page: 1,
+        })
         .then(function (response) {
           setResponseData(response.data);
-          setLoading(false);
-          if (response.data.total_results === 0) {
-            toast.error("No results found!");
-          }
+          setTimeout(() => {
+            setLoading(false);
+            if (response.data.total_results === 0) {
+              setNotFound(true);
+            } else {
+              setNotFound(false);
+            }
+          }, 300);
+          setKeyword(
+            `Total ${response.data.total_results} movies found for "${searchText}"`
+          );
         })
-        .catch(function (error) {
+        .catch((error) => {
           toast.error("Something Went Horribly Wrong!");
           setLoading(false);
         });
@@ -57,26 +77,30 @@ const SearchBar = ({ setResponseData, setLoading, page }) => {
 
   return (
     <>
-      <Col sm="12" md="4" className="my-5">
-        <InputGroup>
-          <Input
-            placeholder="Before Sunrise..."
-            value={searchText}
-            onChange={handleSearchChange}
-          />
-          <Button
-            onClick={handleSearchClick}
-            style={{ backgroundColor: "#8e44ad" }}
-          >
-            Search
-          </Button>
-        </InputGroup>
+      <Col
+        xs="12"
+        sm="12"
+        md="4"
+        className="my-3 d-flex w-100 justify-content-center"
+      >
+        <Col xs="12" sm="12" md="4">
+          <InputGroup>
+            <Input
+              placeholder="Search Before Sunrise..."
+              value={searchText}
+              onChange={handleSearchChange}
+            />
+            <Button
+              onClick={handleSearchClick}
+              style={{ backgroundColor: "#191919" }}
+            >
+              Search
+            </Button>
+          </InputGroup>
+        </Col>
       </Col>
     </>
   );
 };
 
 export default SearchBar;
-
-//http://www.omdbapi.com/?apikey=[c62cc61f]&
-//http://img.omdbapi.com/?apikey=[c62cc61f]&
