@@ -2,7 +2,6 @@ import React, { useState, useEffect, Fragment } from "react";
 import { Row, Col, Button, Input, InputGroup } from "reactstrap";
 import { Toaster } from "react-hot-toast";
 import { FiGithub } from "react-icons/fi";
-import { BiLeftArrow, BiRightArrow } from "react-icons/bi";
 import Home from "./pages/Home";
 
 function App() {
@@ -43,29 +42,33 @@ function App() {
       </Row>
       <Col
         sm="12"
-        className="d-flex align-items-center justify-content-center gap-1 mt-5 py-3 footer"
+        className="d-flex align-items-center justify-content-center gap-1 mt-5 py-3 footer bg-dark w-100"
         style={{
           borderTop: "2px rgba(0,0,0,0.1) solid",
           borderBottom: "2px rgba(0,0,0,0.1) solid",
+          position: "fixed",
+          bottom: "0",
         }}
       >
         <a
-          className="text-dark d-flex align-items-center gap-1"
+          className="text-white d-flex align-items-center gap-1"
           href="https://www.themoviedb.org/"
           target="_blank"
           rel="noreferrer"
         >
-          <span className="text-dark d-none d-md-inline">Data provided by</span>
+          <span className="text-white d-none d-md-inline">
+            Data provided by
+          </span>
           <img
             src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_2-d537fb228cf3ded904ef09b136fe3fec72548ebc1fea3fbbd1ad9e36364db38b.svg"
             alt=""
             width={50}
           />
         </a>
-        <span className="fs-6 text-dark fw-bolder mx-2">·</span>
+        <span className="fs-6 text-white fw-bolder mx-2">·</span>
         <a className="" href="https://h-solak.github.io/">
-          <FiGithub className="fs-5 text-dark" />
-          <span className="text-dark d-none d-md-inline">
+          <FiGithub className="fs-5 text-white" />
+          <span className="text-white d-none d-md-inline">
             {" "}
             Visit My Portfolio
           </span>

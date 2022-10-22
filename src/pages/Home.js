@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Row, Col, Button, Input, InputGroup } from "reactstrap";
 import { toast } from "react-hot-toast";
 import { BiLeftArrow, BiRightArrow } from "react-icons/bi";
-import { BsHandIndexThumbFill } from "react-icons/bs";
-import { FaSearch } from "react-icons/fa";
 import Fade from "react-reveal/Fade";
 import SearchBar from "../components/SearchBar";
 import MovieList from "../components/MovieList";

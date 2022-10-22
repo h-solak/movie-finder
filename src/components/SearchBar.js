@@ -48,7 +48,6 @@ const SearchBar = ({
 
   const handleSearchClick = () => {
     setIsSimilar(false);
-    setWelcome(false);
     setPage(1);
     if (searchText.length > 0) {
       setLoading(true);
@@ -72,6 +71,7 @@ const SearchBar = ({
           setKeyword(
             `Total ${response.data.total_results} movies found for "${searchText}"`
           );
+          setWelcome(false);
         })
         .catch((error) => {
           toast.error("Something Went Horribly Wrong!");
