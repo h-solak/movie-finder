@@ -12,6 +12,8 @@ const SearchBar = ({
   setKeyword,
   setNotFound,
   setWelcome,
+  isSimilar,
+  setIsSimilar,
 }) => {
   const [searchText, setSearchText] = useState("");
 
@@ -20,27 +22,32 @@ const SearchBar = ({
   };
 
   useEffect(() => {
-    setLoading(true);
-    axios
-      .request({
-        method: "GET",
-        url: `https://api.themoviedb.org/3/search/movie?api_key=${application.api_key}&language=en-US&page=${page}&include_adult=false&query=${searchText}`,
-        query: searchText,
-        page: 1,
-      })
-      .then(function (response) {
-        setResponseData(response.data);
-        setTimeout(() => {
+    if (!isSimilar) {
+      axios
+        .request({
+          method: "GET",
+          url: `https://api.themoviedb.org/3/search/movie?api_key=${application.api_key}&language=en-US&page=${page}&include_adult=false&query=${searchText}`,
+          query: searchText,
+          page: 1,
+        })
+        .then(function (response) {
+          setResponseData(response.data);
+          setTimeout(() => {
+            setLoading(false);
+          }, 300);
+          setKeyword(
+            `Total ${response.data.total_results} movies found for "${searchText}"`
+          );
+          setNotFound(false);
+        })
+        .catch(function (error) {
           setLoading(false);
-        }, 300);
-        setNotFound(false);
-      })
-      .catch(function (error) {
-        setLoading(false);
-      });
+        });
+    }
   }, [page]);
 
   const handleSearchClick = () => {
+    setIsSimilar(false);
     setWelcome(false);
     setPage(1);
     if (searchText.length > 0) {

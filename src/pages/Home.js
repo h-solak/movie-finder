@@ -22,7 +22,12 @@ const Home = ({
   setNotFound,
   welcome,
   setWelcome,
+  isSimilar,
+  setIsSimilar,
 }) => {
+  useEffect(() => {
+    console.log(isSimilar);
+  }, [isSimilar]);
   return (
     <>
       <div className="d-flex flex-column m-0 p-0">
@@ -39,6 +44,8 @@ const Home = ({
             notFound={notFound}
             setNotFound={setNotFound}
             setWelcome={setWelcome}
+            isSimilar={isSimilar}
+            setIsSimilar={setIsSimilar}
           />
           {welcome ? (
             <div className="m-0 d-flex flex-column justify-content-center absolute-center gap-2">
@@ -73,6 +80,8 @@ const Home = ({
             notFound={notFound}
             setNotFound={setNotFound}
             setWelcome={setWelcome}
+            isSimilar={isSimilar}
+            setIsSimilar={setIsSimilar}
           />
           {responseData?.total_pages > 1 && !loading ? (
             <Col

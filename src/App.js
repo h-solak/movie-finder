@@ -13,6 +13,7 @@ function App() {
   const [keyword, setKeyword] = useState("");
   const [notFound, setNotFound] = useState(false);
   const [welcome, setWelcome] = useState(true);
+  const [isSimilar, setIsSimilar] = useState(false); //to prevent the bug that occurs when the page is changed
 
   return (
     <Fragment>
@@ -36,6 +37,8 @@ function App() {
           setNotFound={setNotFound}
           welcome={welcome}
           setWelcome={setWelcome}
+          isSimilar={isSimilar}
+          setIsSimilar={setIsSimilar}
         />
       </Row>
       <Col

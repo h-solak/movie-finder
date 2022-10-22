@@ -22,10 +22,14 @@ const MovieList = ({
   notFound,
   setNotFound,
   setWelcome,
+  isSimilar,
+  setIsSimilar,
+  page,
+  setPage,
 }) => {
   const [genres, setGenres] = useState([]);
+  const [selectedMovie, setSelectedMovie] = useState();
   useEffect(() => {
-    // https://api.themoviedb.org/3/genre/movie/list?api_key=<<api_key>>&language=en-US
     axios
       .request({
         method: "GET",
@@ -39,9 +43,38 @@ const MovieList = ({
       });
   }, [responseData]);
 
+  useEffect(() => {
+    if (isSimilar) {
+      axios
+        .request({
+          method: "GET",
+          url: `https://api.themoviedb.org/3/movie/${selectedMovie.id}/recommendations?api_key=${application.api_key}&language=en-US&page=${page}`,
+        })
+        .then(function (response) {
+          setKeyword(
+            `${response.data.total_results} Movie Recommendations for "${selectedMovie.title}"`
+          );
+          setTimeout(() => {
+            setLoading(false);
+          }, 300);
+          if (response.data.total_results === 0) {
+            setNotFound(true);
+          } else {
+            setNotFound(false);
+          }
+          setResponseData(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [page]);
+
   const handleMovieClick = (selectedMovieID) => {
+    setIsSimilar(true);
     setWelcome(false);
     setLoading(true);
+    setPage(1);
     axios
       .request({
         method: "GET",
@@ -172,7 +205,13 @@ const MovieList = ({
                     style={{
                       backgroundColor: "#8e44ad",
                     }}
-                    onClick={() => handleMovieClick(movie?.id)}
+                    onClick={() => {
+                      handleMovieClick(movie?.id);
+                      setSelectedMovie({
+                        id: movie?.id,
+                        title: movie?.title,
+                      });
+                    }}
                   >
                     Find Movies Like This
                   </div>
