@@ -28,7 +28,7 @@ const Home = ({
   }, [isSimilar]);
   return (
     <>
-      <div className="d-flex flex-column m-0 p-0">
+      <div className="d-flex flex-column m-0 p-0 mb-5">
         <span className="w-100 m-0 px-3 pt-3 fs-3 fw-bolder default text-center mb-1">
           Movie Finder
         </span>

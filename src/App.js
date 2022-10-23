@@ -19,7 +19,7 @@ function App() {
       <Toaster position="top-center" />
       <Row
         className="m-0 h-100 d-flex justify-content-around"
-        style={{ minHeight: "80vh" }}
+        style={{ minHeight: "90vh" }}
       >
         <Home
           responseData={responseData}
@@ -42,12 +42,13 @@ function App() {
       </Row>
       <Col
         sm="12"
-        className="d-flex align-items-center justify-content-center gap-1 mt-5 py-3 footer bg-dark w-100"
+        className="d-flex align-items-center justify-content-center gap-1 w-100 bg-dark"
         style={{
           borderTop: "2px rgba(0,0,0,0.1) solid",
           borderBottom: "2px rgba(0,0,0,0.1) solid",
-          position: "fixed",
           bottom: "0",
+          marginTop: "auto",
+          height: "10vh",
         }}
       >
         <a
