@@ -96,6 +96,7 @@ const SearchBar = ({
               placeholder="Search Before Sunrise..."
               value={searchText}
               onChange={handleSearchChange}
+              autoFocus
             />
             <Button
               onClick={handleSearchClick}
